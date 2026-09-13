@@ -1,6 +1,7 @@
 Java Learning Roadmap
 
 Module 1: Java Fundamentals
+
 	• JDK, JRE, JVM
 	• Installing Java 21
 	• Writing your first program
@@ -13,6 +14,7 @@ Module 1: Java Fundamentals
 	• Control statements
 
 Module 2: Object-Oriented Programming
+
 	• Classes & Objects
 	• Constructors
 	• this keyword
@@ -27,6 +29,7 @@ Module 2: Object-Oriented Programming
 	• Method overriding
 
 Module 3: Java Internals
+
 	• Stack vs Heap
 	• Memory Management
 	• Garbage Collection
@@ -37,6 +40,7 @@ Module 3: Java Internals
 	• hashCode()
 
 Module 4: Collections Framework
+
 	• List
 	• ArrayList
 	• LinkedList
@@ -53,12 +57,14 @@ Module 4: Collections Framework
 	• LinkedHashMap
 	• TreeMap
 	• ConcurrentHashMap
+	
 We'll also discuss:
 	• Time complexity
 	• Internal implementation
 	• When to choose each collection
 
 Module 5: Exception Handling
+
 	• Checked exceptions
 	• Unchecked exceptions
 	• try
@@ -69,12 +75,14 @@ Module 5: Exception Handling
 	• Custom exceptions
 
 Module 6: Generics
+
 	• Generic classes
 	• Generic methods
 	• Wildcards
 	• Upper and lower bounds
 
 Module 7: Java 8–21 Features
+
 	• Lambda expressions
 	• Functional interfaces
 	• Streams API
@@ -87,6 +95,7 @@ Module 7: Java 8–21 Features
 	• Virtual Threads
 
 Module 8: Multithreading & Concurrency
+
 	• Threads
 	• Runnable
 	• ExecutorService
@@ -97,12 +106,14 @@ Module 8: Multithreading & Concurrency
 	• CompletableFuture
 
 Module 9: File Handling
+
 	• Files
 	• Buffered streams
 	• NIO
 	• Serialization
 
 Module 10: Interview Preparation
+
 	• Frequently asked Java questions
 	• Coding exercises
 	• Debugging
