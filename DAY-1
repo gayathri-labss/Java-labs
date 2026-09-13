@@ -1,96 +1,117 @@
-# DAY-1: Java Fundamentals
+================================================================================
+                    DAY-1: JAVA FUNDAMENTALS
+================================================================================
 
-## 1. What is Java?
+1. WHAT IS JAVA?
+================================================================================
 
 Java is a high-level, object-oriented, platform-independent programming language.
 
-- **High-level**: It's easier for humans to read and write than machine code.
-- **Object-oriented**: Programs are built using objects that represent real-world entities.
-- **Platform-independent**: You write Java code once and run it on any operating system that has a Java Virtual Machine (JVM).
+• High-level: Easier for humans to read and write than machine code.
+• Object-oriented: Programs built using objects that represent real-world entities.
+• Platform-independent: Write code once, run on any OS with a Java Virtual Machine (JVM).
 
-**Key Concept**: Java is often described as **Write Once, Run Anywhere (WORA)**
+Key Concept: Write Once, Run Anywhere (WORA)
 
----
 
-## 2. What are JDK, JRE, and JVM?
+2. WHAT ARE JDK, JRE, AND JVM?
+================================================================================
 
-### JVM (Java Virtual Machine)
+A. JVM (Java Virtual Machine)
+----------------------------
 The JVM is responsible for running Java bytecode.
 
-**Main Responsibilities:**
-- Loading classes
-- Verifying bytecode
-- Managing memory
-- Running garbage collection
-- Executing the program
+Main Responsibilities:
+    • Loading classes
+    • Verifying bytecode
+    • Managing memory
+    • Running garbage collection
+    • Executing the program
 
-**Important**: Without a JVM, a Java program cannot run.
+Important: Without a JVM, a Java program cannot run.
 
-### JRE (Java Runtime Environment)
+
+B. JRE (Java Runtime Environment)
+---------------------------------
 The JRE contains:
-- JVM
-- Core Java libraries
-- Runtime components
+    • JVM
+    • Core Java libraries
+    • Runtime components
 
-**Use Case**: It's enough to run Java applications but not to develop them.
+Use Case: Enough to run Java applications but NOT to develop them.
 
-### JDK (Java Development Kit)
+
+C. JDK (Java Development Kit)
+-----------------------------
 The JDK includes:
-- JRE
-- JVM
-- Java compiler (javac)
-- Debugger
-- Development tools
+    • JRE
+    • JVM
+    • Java compiler (javac)
+    • Debugger
+    • Development tools
 
-**Use Case**: If you're writing Java code, you need the JDK.
+Use Case: If you're writing Java code, you NEED the JDK.
 
-### Relationship Between JDK, JRE, and JVM
-```
-JDK
- ├── JRE
- │    └── JVM
-```
 
----
+Relationship Between JDK, JRE, and JVM:
 
-## 3. What Happens When You Run a Java Program?
+    JDK (Java Development Kit)
+      ├── JRE (Java Runtime Environment)
+      │   └── JVM (Java Virtual Machine)
 
-### Example Code:
-```java
-public class Hello {
-    public static void main(String[] args) {
-        System.out.println("Hello");
+
+3. WHAT HAPPENS WHEN YOU RUN A JAVA PROGRAM?
+================================================================================
+
+Example Code:
+
+    public class Hello {
+        public static void main(String[] args) {
+            System.out.println("Hello");
+        }
     }
-}
-```
 
-### Execution Flow:
-```
-Hello.java
-    ↓
-javac (Compiler)
-    ↓
-Hello.class (Bytecode)
-    ↓
-JVM
-    ↓
-Machine Code
-    ↓
-Output on Screen
-```
 
-### How It Works:
+Execution Flow:
+
+    Hello.java
+        ↓
+    javac (Compiler)
+        ↓
+    Hello.class (Bytecode)
+        ↓
+    JVM
+        ↓
+    Machine Code
+        ↓
+    Output on Screen
+
+
+How It Works:
 1. The compiler converts your source code into bytecode.
-2. The JVM converts that bytecode into machine instructions for the operating system you're using.
+2. The JVM converts that bytecode into machine instructions for your OS.
 
-**Important Note**: The code is not compiled on every platform. It is compiled once into bytecode. The JVM on each operating system executes that same bytecode.
+IMPORTANT NOTE:
+The code is NOT compiled on every platform.
+It is compiled ONCE into bytecode.
+The JVM on each operating system executes that SAME bytecode.
 
----
 
-## Summary
+4. QUICK REFERENCE TABLE
+================================================================================
 
-| Term | Full Form | Purpose |
-|------|-----------|---------|
-| **JDK** | Java Development Kit | Used for developing Java applications. Contains JRE, JVM, compiler (javac), debugger, and other development tools. |
-| **JRE** | Java Runtime Environment | Contains the JVM and Java class libraries required to run Java applications. Does not include development tools like the compiler. |
-| **JVM** | Java Virtual Machine | Responsible for executing Java bytecode and converting it to machine code. Platform-specific but receives the same bytecode from all platforms. |
+TERM | FULL FORM                          | PURPOSE
+-----|------------------------------------|-----------------------------------------
+JDK  | Java Development Kit               | For DEVELOPING Java applications
+     |                                    | Includes: JRE + JVM + compiler + tools
+-----|------------------------------------|-----------------------------------------
+JRE  | Java Runtime Environment           | For RUNNING Java applications
+     |                                    | Includes: JVM + Java class libraries
+-----|------------------------------------|-----------------------------------------
+JVM  | Java Virtual Machine               | Executes Java bytecode
+     |                                    | Converts bytecode to machine code
+
+
+================================================================================
+                              END OF DAY-1
+================================================================================
