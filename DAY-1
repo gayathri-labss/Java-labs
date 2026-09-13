@@ -1,4 +1,4 @@
-What is Java?
+1. What is Java?
 Java is a high-level, object-oriented, platform-independent programming language.
 High-level means it's easier for humans to read and write than machine code.
 Object-oriented means programs are built using objects that represent real-world entities.
@@ -6,7 +6,7 @@ Platform-independent means you write Java code once and run it on any operating 
 That's why Java is often described as:
 	Write Once, Run Anywhere (WORA)
 
-What are JDK, JRE, and JVM?
+2. What are JDK, JRE, and JVM?
 JVM (Java Virtual Machine)
 The JVM is responsible for running Java bytecode.
 Its main responsibilities include:
@@ -31,19 +31,21 @@ The JDK includes:
 	• Java compiler (javac)
 	• Debugger
 	• Development tools
+
 If you're writing Java code, you need the JDK.
 A simple way to remember the relationship is:
 JDK
  ├── JRE
  │    └── JVM
 
-What happens when you run a Java program?
+3. What happens when you run a Java program?
 Suppose you write:
 public class Hello {
     public static void main(String[] args) {
         System.out.println("Hello");
     }
 }
+
 The flow is:
 Hello.java
       ↓
@@ -57,6 +59,7 @@ Machine Code
       ↓
 Output on Screen
 The compiler converts your source code into bytecode, and the JVM converts that bytecode into machine instructions for the operating system you're using.
+
 
 NOTE:
 The code is not compiled on every platform. It is compiled once into bytecode.
