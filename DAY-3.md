@@ -1,371 +1,253 @@
-Comparable vs Comparator
+# Day 3 — Comparable, Comparator, Iterators, Generics, and Streams
 
-Comparable:
-	• Used to define natural sorting.
-	• Implemented by the class itself.
-	• Uses compareTo() method.
+## Comparable vs Comparator
+
+### Comparable
+- Used to define natural ordering.
+- Implemented by the class itself.
+- Uses `compareTo()` method.
 
 Syntax:
-class Student implements Comparable<Student> {
 
+```java
+class Student implements Comparable<Student> {
+    @Override
     public int compareTo(Student s) {
         return this.id - s.id;
     }
 }
+```
 
-
-Comparator:
-• Used to define custom sorting.
-• Implemented in a separate class.
-• Uses compare() method.
+### Comparator
+- Used to define custom ordering.
+- Implemented in a separate class.
+- Uses `compare()` method.
 
 Syntax:
-class NameComparator implements Comparator<Student> {
 
+```java
+class NameComparator implements Comparator<Student> {
+    @Override
     public int compare(Student s1, Student s2) {
         return s1.name.compareTo(s2.name);
     }
 }
+```
 
-Ex: Collections.sort(studentList, new NameComparator());
+Example:
 
-Feature	Comparable	Comparator
-Package	java.lang	java.util
-Method	compareTo()	compare()
-Sorting	Natural	Custom
-Logic	Inside class	Outside class
-Number of sorting options	One	Multiple
+```java
+Collections.sort(studentList, new NameComparator());
+```
 
-Time complexity is o(log n)
+| Feature | Comparable | Comparator |
+|---|---:|---:|
+| Package | `java.lang` | `java.util` |
+| Method | `compareTo()` | `compare()` |
+| Sorting type | Natural | Custom |
+| Logic location | Inside class | Outside class |
+| Number of sorting options | One | Multiple |
 
+> Note: Sorting algorithms used by Collections.sort are typically O(n log n) time complexity (not `o(log n)`).
 
-Iterator v/s ListIterator :
+---
 
-Iterator:
+## Iterator vs ListIterator
 
-• Iterator is used to traverse (iterate through) elements in a collection one by one.
-• Available in the java.util package.
-• Instead of using loops, Iterator provides a standard way to access elements and allows safe removal while iterating.
+### Iterator
+- Used to traverse elements in a Collection one by one.
+- Available in `java.util`.
+- Allows safe removal during iteration.
 
-Syntax: Iterator<String> it = list.iterator();
+Syntax:
 
-hasNext()   // Checks if next element exists
+```java
+Iterator<String> it = list.iterator();
 
-next()      // Returns next element
+while (it.hasNext()) {
+    String s = it.next();
+    // ...
+    it.remove(); // optional
+}
+```
 
-remove()    // Removes current element
+Important methods:
+- `hasNext()` — checks if a next element exists (O(1))
+- `next()` — returns the next element (O(1))
+- `remove()` — removes the current element (O(1))
 
+Characteristics:
+- Forward traversal only.
+- Works with all `Collection` types.
+- Cannot move backward.
 
-Method	Complexity
-hasNext()	O(1)
-next()	O(1)
-remove()	O(1)
+### ListIterator
+- Advanced iterator for `List` implementations (`ArrayList`, `LinkedList`, `Vector`).
+- Supports bidirectional traversal and modification while iterating.
 
-• Forward traversal only.
-• Works with all Collection types.
-•  Cannot move backward.
+Key methods:
+- `hasNext()`, `next()`
+- `hasPrevious()`, `previous()`
+- `add(E e)` — insert element
+- `set(E e)` — replace last returned element
+- `remove()` — remove last returned element
 
-List Iterator:
-• ListIterator is an advanced version of Iterator.
-• Works only with List implementations (ArrayList, LinkedList, Vector).
+Characteristics:
+- Forward and backward traversal.
+- Can update elements using `set()`.
+- Can insert elements using `add()`.
 
-hasNext()
+| Feature | Iterator | ListIterator |
+|---|---:|---:|
+| Works with | All Collections | Lists only |
+| Forward traversal | ✅ Yes | ✅ Yes |
+| Backward traversal | ❌ No | ✅ Yes |
+| add() | ❌ No | ✅ Yes |
+| set() | ❌ No | ✅ Yes |
+| remove() | ✅ Yes | ✅ Yes |
 
-next()
+---
 
-hasPrevious()
+## Module 6: Generics
+Generics allow writing type-safe code using type parameters like `<T>`.
 
-previous()
+Without generics:
 
-add()
-
-set()
-
-remove()
-
-• Forward traversal.
-• Backward traversal.
-• Can update elements using set().
-•  Can insert elements using add().
-
-Feature	Iterator	ListIterator
-Works with	All Collections	Lists only
-Forward	✅ Yes	✅ Yes
-Backward	❌ No	✅ Yes
-add()	❌ No	✅ Yes
-set()	❌ No	✅ Yes
-remove()	✅ Yes	✅ Yes
-
-
-Module 6: Generics
-Generic allows us to write type safe code. Uses <T>
-
-Without generic:
+```java
 ArrayList list = new ArrayList();
-
 list.add("Java");
 list.add(100);
 
-While retriving: String s = (String) list.get(1); then we get ClassCastException
+// While retrieving:
+String s = (String) list.get(1); // ClassCastException at runtime
+```
 
-With generic:
+With generics:
+
+```java
 ArrayList<String> list = new ArrayList<>();
-
 list.add("Java");
 list.add("Spring");
+// Only String values allowed
+```
 
-We can only add string values
+Common type parameter names:
+- `<T>` — Type
+- `<E>` — Element
+- `<K>` — Key
+- `<V>` — Value
+- `<N>` — Number
 
+### Wildcards
+1. `<?>` — Unbounded wildcard (means any type)
+   - `List<?> list;` accepts `List<String>`, `List<Integer>`, etc.
 
-Type;
-<T>  -> Type
+2. `<? extends T>` — Upper-bounded wildcard (T or any subclass of T)
+   - Example: `List<? extends Number>` accepts `List<Integer>`, `List<Double>`, etc.
 
-<E>  -> Element
+3. `<? super T>` — Lower-bounded wildcard (T or any superclass of T)
+   - Example: `List<? super Integer>` accepts `List<Integer>`, `List<Number>`, `List<Object>`, etc.
 
-<K>  -> Key
+Generics provide compile-time type checking; they do not change runtime time complexity.
 
-<V>  -> Value
+---
 
-<N>  -> Number
+## Module 7: Java 8–21 Features — Streams
+A Stream is used to process collections of data (filter, map, sort, count, etc.) in a simple and expressive way.
 
-Wildcards
-1. <?>
-Means any type.
-List<?> list;
-Accepts:
-	• List<String>
-	• List<Integer>
-	• List<Double>
+Notes about Streams:
+- A Stream does not store data; it processes data from a source (List, Set, array).
+- Streams do not modify the original collection.
+- Streams are processed lazily — intermediate operations run only when a terminal operation is called.
+- A Stream can be used only once.
+- Stream operations can be chained.
 
-2. <? extends T>
-Upper bound.
-Means:
-"T or any subclass of T"
-Example:
-List<? extends Number>
-Accepts:
-	• Integer
-	• Double
-	• Float
+Example — before Java 8:
 
-3. <? super T>
-Lower bound.
-Means:
-"T or any superclass of T"
-Example:
-List<? super Integer>
-Accepts:
-	• Integer
-	• Number
-	• Object
-
-Time Complexity
-Generics themselves do not affect time complexity.
-They provide compile-time type checking, not performance improvements.
-
-
-Module 7: Java 8–21 Features
-
-Java -8
-A Stream is used to process collections of data (filter, sort, map, count, etc.) in a simple and efficient way.
-Note: A Stream does not store data. It only processes data from a source like a List, Set, or array
-
-Why do we need streams?
-Before java8
-
-List<Integer> list = Arrays.asList(10,20,30,40);
-
-for(Integer i : list){
-    if(i > 20){
+```java
+List<Integer> list = Arrays.asList(10, 20, 30, 40);
+for (Integer i : list) {
+    if (i > 20) {
         System.out.println(i);
     }
 }
+```
 
+Example — with Java 8 Stream:
 
-Java 8 stream:
+```java
 list.stream()
     .filter(i -> i > 20)
     .forEach(System.out::println);
+```
 
-• ✅ Streams don't modify the original collection.
-• ✅ Streams are processed lazily (intermediate operations run only when a terminal operation is called).
-• ✅ A stream can be used only once.
-• ✅ Streams can be chained.
+### Types of Stream Operations
+- Intermediate operations: return another `Stream` (lazy)
+  - `filter()`, `map()`, `sorted()`, `distinct()`, `limit()`, `skip()`
+- Terminal operations: produce the final result (eager)
+  - `collect()`, `forEach()`, `count()`, `reduce()`, `findFirst()`, `anyMatch()`
 
+### Common Stream Methods (and complexity where applicable)
+- `filter()` — O(n)
+- `map()` — O(n)
+- `count()` — O(n)
+- `sorted()` — O(n log n)
 
-Types of Operations
-Intermediate Operations
-These return another Stream.
-Examples:
-	• filter()
-	• map()
-	• sorted()
-	• distinct()
-	• limit()
-	• skip()
+Examples and usage:
 
-Terminal Operations
-These produce the final result.
-Examples:
-	• collect()
-	• forEach()
-	• count()
-	• reduce()
-	• findFirst()
-	• anyMatch()
+- forEach()
+```java
+list.stream().forEach(System.out::println);
+```
 
-Common Stream Methods
-filter()
-Used to filter data.
-list.stream()
-    .filter(i -> i > 20);
-Output:
-30
-40
-
-map()
-Used to transform data.
-list.stream()
-    .map(i -> i * 2);
-Output:
-20
-40
-60
-80
-
-sorted()
-Sorts elements.
-list.stream()
-    .sorted();
-
-distinct()
-Removes duplicates.
-Arrays.asList(1,1,2,3,3)
-↓
-distinct()
-↓
-1,2,3
-
-limit()
-Returns the first n elements.
-list.stream()
-    .limit(3);
-
-count()
-Counts elements.
-list.stream()
-    .count();
-
-collect()
-Converts the stream back to a collection.
-list.stream()
-    .filter(i -> i > 20)
-    .collect(Collectors.toList());
-
-6. Time Complexity
-Most stream operations process each element once:
-	• filter() → O(n)
-	• map() → O(n)
-	• count() → O(n)
-	• sorted() → O(n log n)
-
-Collection	Stream
-Stores data	Processes data
-Can be reused	Can be used only once
-Eager	Lazy (intermediate operations)
-
-
-Once a terminal operation is executed, the stream cannot be reused.
-
-1. forEach()
-Used to perform an action on every element.
-list.stream()
-    .forEach(System.out::println);
-Output:
-10
-20
-30
-40
-
-2. collect()
-Converts the stream into a collection (List, Set, etc.).
+- collect()
+```java
 List<Integer> result = list.stream()
-                           .filter(i -> i > 20)
-                           .collect(Collectors.toList());
-Output:
-[30, 40]
+                            .filter(i -> i > 20)
+                            .collect(Collectors.toList());
+```
 
-3. count()
-Returns the number of elements.
+- count()
+```java
 long count = list.stream().count();
-Output:
-4
+```
 
-4. findFirst()
-Returns the first element.
-Optional<Integer> first = list.stream()
-                              .findFirst();
-Output:
-Optional[10]
+- findFirst()
+```java
+Optional<Integer> first = list.stream().findFirst();
+```
 
-5. findAny()
-Returns any one element.
-Mostly used with parallel streams.
-Optional<Integer> any = list.stream()
-                            .findAny();
+- findAny() — useful with parallel streams
+```java
+Optional<Integer> any = list.stream().findAny();
+```
 
-6. anyMatch()
-Returns true if at least one element matches.
-boolean result = list.stream()
-                     .anyMatch(i -> i > 30);
-Output:
-true
+- anyMatch()/allMatch()/noneMatch()
+```java
+boolean any = list.stream().anyMatch(i -> i > 30);
+boolean all = list.stream().allMatch(i -> i > 5);
+boolean none = list.stream().noneMatch(i -> i < 0);
+```
 
-7. allMatch()
-Returns true if all elements match.
-boolean result = list.stream()
-                     .allMatch(i -> i > 5);
-Output:
-true
+- reduce() — combine elements (example: sum)
+```java
+int sum = list.stream().reduce(0, Integer::sum);
+```
 
-8. noneMatch()
-Returns true if no elements match.
-boolean result = list.stream()
-                     .noneMatch(i -> i < 0);
-Output:
-true
+- min()/max()
+```java
+Optional<Integer> min = list.stream().min(Integer::compareTo);
+Optional<Integer> max = list.stream().max(Integer::compareTo);
+```
 
-9. reduce()
-Combines all elements into a single result.
-Example: Sum
-int sum = list.stream()
-              .reduce(0, Integer::sum);
-Output:
-100
-(10 + 20 + 30 + 40)
+Summary table — Collections vs Stream
 
-10. min() / max()
-Find smallest or largest element.
-list.stream().min(Integer::compareTo);
-Output:
-10
-list.stream().max(Integer::compareTo);
-Output:
-40
+| Collection | Stream |
+|---|---|
+| Stores data | Processes data |
+| Can be reused | Can be used only once |
+| Eager | Lazy (intermediate operations) |
 
-Method	Purpose
-forEach()	Print/process each element
-collect()	Convert to List/Set
-count()	Count elements
-findFirst()	First element
-findAny()	Any element
-anyMatch()	At least one matches
-allMatch()	All match
-noneMatch()	No elements match
-reduce()	Combine into one value
-min() / max()	Find smallest/largest
+---
 
-
-
-
-
+End of notes.
