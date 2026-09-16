@@ -310,4 +310,3 @@ The JVM can detect deadlocks via tooling (thread dumps), but it does not automat
 
 ---
 
-(Notes cleaned and reformatted from original DAY-5.md: fixed typos, added headings, code blocks, and clarified explanations.)
