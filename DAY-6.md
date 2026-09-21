@@ -1,65 +1,162 @@
-JAVA 21:
-	PLATFORM THREADS: 
-	Before Java 21, every thread you created was a Platform Thread.
-	A Platform Thread is a traditional Java thread that is mapped one-to-one with an operating system (OS) thread.
-	1 Java Thread = 1 OS Thread
-	Every Java thread requires its own OS thread.
-	
-	Why is this a problem?
-	OS threads are expensive.
-	Each OS thread requires:
-		• Memory (stack)
-		• Scheduling by the operating system
-		• Context switching
-	
-	
-	VIRTUAL THREADS:
-	A Virtual Thread is a lightweight Java thread managed by the JVM instead of being permanently tied to a dedicated operating system thread.
-	
-	Platform Thread	Virtual Thread
-	Heavyweight	Lightweight
-	1 Java Thread = 1 OS Thread	Many Virtual Threads share a smaller number of OS threads
-	Expensive	Cheap
-	Limited scalability	Designed for massive scalability
-	Available before Java 21	Introduced in Java 21
-	Managed by OS                         Managed by JVM
-	
-	
-	Carrier thread: A Carrier Thread is a Platform Thread (backed by an OS thread) that temporarily executes a Virtual Thread. It's simply a Platform Thread that the JVM uses to run Virtual Threads.
-	
-	Virtual Thread	Carrier Thread
-	Lightweight	Heavyweight
-	Managed by JVM	Platform Thread managed by OS
-	Millions can exist	Only a limited number are needed
-	Doesn't own an OS thread permanently	Permanently backed by an OS thread
-	
-	Virtual Threads are lightweight tasks managed by the JVM. They are executed on a small number of Carrier Threads (which are Platform Threads). When a Virtual Thread blocks, the JVM can free the Carrier Thread to execute another Virtual Thread, making much better use of OS threads.
-	
-	Virtual Thread
-	
-	↓
-	
-	Database Call
-	
-	↓
-	
-	Virtual Thread pauses
-	
-	↓
-	
-	Carrier Thread becomes free
-	
-	↓
-	
-	Carrier Thread executes another Virtual Thread
-	
-	
-	Virtual Threads are lightweight Java threads managed by the JVM. They are not permanently attached to an OS thread. Instead, the JVM schedules them onto a smaller number of Carrier Threads (which are Platform Threads backed by OS threads). When a Virtual Thread blocks, the JVM can free the Carrier Thread to execute another Virtual Thread, allowing applications to handle a very large number of concurrent tasks efficiently.
-	
-	Mounting: Mounting means attaching a Virtual Thread to a Carrier Thread so it can execute.
-	
-	Unmounting: Unmounting means detaching a Virtual Thread from the Carrier Thread so the Carrier Thread can execute another Virtual Thread.
-	
-	Pinning:
-	Pinning occurs when a Virtual Thread cannot be unmounted from its Carrier Thread while it is blocked, causing the Carrier Thread to remain occupied.One common example is when a Virtual Thread is blocked while inside certain synchronized sections that prevent unmounting.
-	
+# Day 6: Java 21 - Platform Threads vs Virtual Threads
+
+## 1) Java 21: Platform Threads
+
+Before Java 21, every thread you created was a Platform Thread.
+
+A Platform Thread is a traditional Java thread mapped one-to-one with an operating system (OS) thread.
+
+### Rule
+- 1 Java Thread = 1 OS Thread
+
+This causes problems because:
+- OS threads are expensive
+- each OS thread uses memory (stack)
+- each thread needs scheduling by the operating system
+- context switching is costly
+
+---
+
+## 2) Virtual Threads
+
+A Virtual Thread is a lightweight Java thread managed by the JVM instead of being permanently tied to a dedicated operating system thread.
+
+### Comparison
+
+| Feature | Platform Thread | Virtual Thread |
+| --- | --- | --- |
+| Weight | Heavyweight | Lightweight |
+| Java Thread = OS Thread | Yes | No |
+| Memory | More memory | Less memory |
+| Scalability | Limited | Designed for massive scalability |
+| Managed by | OS | JVM |
+| Available | Before Java 21 | Introduced in Java 21 |
+
+---
+
+## 3) Carrier Thread
+
+A Carrier Thread is a Platform Thread (backed by an OS thread) that temporarily executes a Virtual Thread.
+
+In simple words:
+- Virtual threads are scheduled onto a smaller number of carrier threads.
+- When a virtual thread blocks, the JVM can unmount it and run another virtual thread on the same carrier thread.
+
+### Example flow
+
+```text
+Virtual Thread
+    ↓
+Carrier Thread executes it
+    ↓
+Virtual Thread blocks
+    ↓
+Carrier Thread becomes free
+    ↓
+Carrier Thread executes another Virtual Thread
+```
+
+This makes Java applications much more efficient at handling a huge number of concurrent tasks.
+
+---
+
+## 4) Why Virtual Threads?
+
+Virtual Threads are lightweight Java threads managed by the JVM.
+
+They are not permanently attached to an OS thread. Instead, the JVM schedules them onto a smaller number of Carrier Threads.
+
+### Benefits
+- huge number of concurrent tasks possible
+- low memory usage
+- better throughput
+- efficient for I/O-heavy applications
+
+---
+
+## 5) Mounting and Unmounting
+
+### Mounting
+Mounting means attaching a Virtual Thread to a Carrier Thread so it can execute.
+
+### Unmounting
+Unmounting means detaching a Virtual Thread from the Carrier Thread so the Carrier Thread can execute another Virtual Thread.
+
+This helps the JVM use carrier threads efficiently.
+
+---
+
+## 6) Pinning
+
+Pinning occurs when a Virtual Thread cannot be unmounted from its Carrier Thread while it is blocked.
+
+This can happen while executing certain synchronized sections or blocking operations that prevent unmounting.
+
+### Example
+A Virtual Thread is blocked while inside a synchronized section, so it cannot be unmounted.
+
+In that case, the Carrier Thread remains occupied.
+
+---
+
+## 7) Important Summary
+
+Virtual Threads are lightweight Java threads managed by the JVM.
+
+- They are not permanently attached to an OS thread.
+- The JVM schedules them onto a smaller number of Carrier Threads.
+- When a Virtual Thread blocks, the JVM can switch to another Virtual Thread.
+- This allows applications to handle a very large number of concurrent tasks efficiently.
+
+---
+
+## 8) Key Points for Interview
+
+### Platform Thread
+- heavy
+- expensive
+- one Java thread = one OS thread
+- limited scalability
+
+### Virtual Thread
+- lightweight
+- many virtual threads can share fewer carrier threads
+- efficient for concurrency and I/O-heavy workloads
+- managed by JVM
+
+---
+
+## 9) Memory and Scalability Comparison
+
+| Type | Result |
+| --- | --- |
+| Platform Thread | Expensive and limited |
+| Virtual Thread | Lightweight and scalable |
+
+### Example
+A large number of Virtual Threads can run on a much smaller number of Carrier Threads, which improves CPU and memory efficiency.
+
+---
+
+## 10) Final Takeaway
+
+Java 21 introduced Virtual Threads to solve the problem of creating too many OS threads.
+
+They provide:
+- better scalability
+- lower memory cost
+- efficient handling of many concurrent tasks
+
+So, Virtual Threads are a major improvement for modern Java applications, especially for I/O-bound workloads.
+
+---
+
+## Quick Revision Notes
+
+- Platform Thread = traditional thread
+- Virtual Thread = lightweight thread managed by JVM
+- Carrier Thread = OS-backed thread used to run virtual threads
+- Mounting = attach virtual thread to carrier thread
+- Unmounting = detach virtual thread from carrier thread
+- Pinning = virtual thread cannot be unmounted while blocked
+
