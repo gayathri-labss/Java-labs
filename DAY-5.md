@@ -6,7 +6,7 @@ A sealed class restricts which classes can extend or implement it. This was intr
 
 Example:
 
-```java
+```text
 public sealed class Payment
     permits CreditCardPayment,
             UpiPayment,
@@ -16,7 +16,7 @@ public sealed class Payment
 
 Syntax:
 
-```java
+```text
 public sealed class Parent
     permits Child1, Child2 {
 }
@@ -26,21 +26,21 @@ Every permitted subclass must choose one of these modifiers:
 
 1. `final` — no further inheritance allowed.
 
-```java
+```text
 public final class CreditCardPayment extends Payment {
 }
 ```
 
 2. `sealed` — continue restricting inheritance (must declare its permitted subclasses).
 
-```java
+```text
 public sealed class Vehicle permits Car, Bike {
 }
 ```
 
 3. `non-sealed` — open inheritance again; anyone can extend this class.
 
-```java
+```text
 public non-sealed class UpiPayment extends Payment {
 }
 ```
@@ -51,7 +51,7 @@ Pattern matching with `instanceof` (Java 16/17 feature) combines type check and 
 
 Java 8:
 
-```java
+```text
 Object obj = "Hello";
 if (obj instanceof String) {
     String str = (String) obj;
@@ -61,7 +61,7 @@ if (obj instanceof String) {
 
 Java 17:
 
-```java
+```text
 Object obj = "Hello";
 if (obj instanceof String str) {
     System.out.println(str.length());
@@ -73,7 +73,7 @@ Note:
 
 Example showing scoping:
 
-```java
+```text
 if (obj instanceof String s) {
     System.out.println(s);
 }
@@ -82,7 +82,7 @@ if (obj instanceof String s) {
 
 A common pattern to use the variable afterwards:
 
-```java
+```text
 if (!(obj instanceof String s)) {
     return;
 }
@@ -95,7 +95,7 @@ Switch expressions (Java 12+ preview, standardized later) allow a `switch` to re
 
 Java 17 example:
 
-```java
+```text
 String day = "MON";
 String result = switch (day) {
     case "MON", "TUE", "WED", "THU", "FRI" -> "Weekday";
@@ -107,7 +107,7 @@ System.out.println(result);
 
 Java 8 equivalent (statement-style switch):
 
-```java
+```text
 String day = "MON";
 String result;
 switch (day) {
@@ -138,7 +138,7 @@ Benefits:
 
 Example using `yield`:
 
-```java
+```text
 public void demo() {
     String day = "MON";
     String result = switch (day) {
@@ -173,7 +173,7 @@ Java supports both concurrency and parallelism depending on the hardware and sch
 
 Extending `Thread`:
 
-```java
+```text
 class MyThread extends Thread {
     @Override
     public void run() {
@@ -187,7 +187,7 @@ t1.start(); // creates a new OS-level thread and calls run() internally
 
 Implementing `Runnable` (preferred separation of concerns):
 
-```java
+```text
 class MyTask implements Runnable {
     @Override
     public void run() {
@@ -204,7 +204,7 @@ Important: call `start()` to run code concurrently; calling `run()` directly jus
 
 Trick question:
 
-```java
+```text
 Runnable r = () -> System.out.println("Hello");
 Thread t = new Thread(r);
 System.out.println("Main");
@@ -243,7 +243,7 @@ Critical section: code that accesses shared mutable data and must be protected.
 
 Use `synchronized` to protect critical sections. Example:
 
-```java
+```text
 class BankAccount {
     private int balance = 1000;
 
@@ -260,7 +260,7 @@ class BankAccount {
 
 Synchronized block example (more flexible):
 
-```java
+```text
 public void withdraw(int amount) {
     // non-critical code
     synchronized (this) {
@@ -274,7 +274,7 @@ public void withdraw(int amount) {
 - `volatile` ensures visibility of changes across threads but does not provide atomicity for compound actions (e.g., `count++`).
 - `AtomicInteger` provides atomic single-variable operations (e.g., `incrementAndGet()`).
 
-```java
+```text
 AtomicInteger count = new AtomicInteger(0);
 count.incrementAndGet();
 System.out.println(count.get()); // 1
@@ -282,7 +282,7 @@ System.out.println(count.get()); // 1
 
 - `ReentrantLock` provides explicit locking with more flexibility (tryLock, timed lock, fairness policy). Always unlock in a `finally` block:
 
-```java
+```text
 ReentrantLock lock = new ReentrantLock();
 lock.lock();
 try {
@@ -309,4 +309,3 @@ Prevention strategies:
 The JVM can detect deadlocks via tooling (thread dumps), but it does not automatically resolve them.
 
 ---
-
