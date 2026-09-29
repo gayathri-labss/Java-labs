@@ -53,7 +53,7 @@ Supports Lambda Expressions.
 A **Lambda Expression** is a concise way of implementing a Functional Interface.
 
 ### Syntax
-```java
+```text
 (parameters) -> {
     statements;
 }
@@ -62,7 +62,7 @@ A **Lambda Expression** is a concise way of implementing a Functional Interface.
 ### Example: Before and After
 
 **Before Lambda (Anonymous Class):**
-```java
+```text
 Runnable r = new Runnable() {
     @Override
     public void run() {
@@ -72,7 +72,7 @@ Runnable r = new Runnable() {
 ```
 
 **After Lambda:**
-```java
+```text
 Runnable r = () -> System.out.println("Hello");
 ```
 
@@ -95,12 +95,12 @@ A **Method Reference** is a shorthand syntax for a Lambda Expression that only c
 ### Why Do We Need Method References?
 
 **Without Method Reference:**
-```java
+```text
 names.forEach(name -> System.out.println(name));
 ```
 
 **With Method Reference:**
-```java
+```text
 names.forEach(System.out::println);
 ```
 
@@ -119,7 +119,7 @@ A **Stream** is a sequence of elements that supports operations such as filterin
 
 ### Stream Pipeline
 
-```
+```text
 Collection
     ↓
  stream()
@@ -135,14 +135,14 @@ Result
 
 Once a Stream has executed a terminal operation, it is consumed and cannot be reused.
 
-```java
+```text
 Stream<String> stream = names.stream();
 stream.forEach(System.out::println);
 stream.forEach(System.out::println);  // ❌ Runtime error (IllegalStateException)
 ```
 
 **Solution:** Create a new Stream each time:
-```java
+```text
 names.stream().forEach(System.out::println);
 ```
 
@@ -163,7 +163,7 @@ Intermediate operations transform a Stream and return another Stream.
 
 ### A. Filter
 
-```java
+```text
 List<String> names = List.of("Java", "Spring", "Docker");
 
 names.stream()
@@ -172,7 +172,7 @@ names.stream()
 ```
 
 **Output:**
-```
+```text
 Spring
 Docker
 ```
@@ -180,7 +180,7 @@ Docker
 ### B. Map - Transforms each element from one form to another
 
 **Example 1: Convert to Uppercase**
-```java
+```text
 List<String> names = List.of("Java", "Spring", "Docker");
 
 names.stream()
@@ -189,14 +189,14 @@ names.stream()
 ```
 
 **Output:**
-```
+```text
 JAVA
 SPRING
 DOCKER
 ```
 
 **Example 2: Square Numbers**
-```java
+```text
 List<Integer> numbers = List.of(2, 3, 4, 5);
 
 numbers.stream()
@@ -205,7 +205,7 @@ numbers.stream()
 ```
 
 **Output:**
-```
+```text
 4
 9
 16
@@ -218,7 +218,7 @@ numbers.stream()
 
 ### D. Distinct, Sort, Limit, Skip
 
-```java
+```text
 List<Integer> numbers = List.of(10, 20, 30, 40, 50, 60);
 
 numbers.stream()
@@ -232,7 +232,7 @@ numbers.stream()
 
 `peek()` is an Intermediate Operation that allows you to look at each element as it flows through the Stream without changing it.
 
-```java
+```text
 List<String> names = List.of("Java", "Spring", "Docker");
 
 names.stream()
@@ -241,7 +241,7 @@ names.stream()
 ```
 
 **Output:**
-```
+```text
 Java
 Spring
 Docker
@@ -257,7 +257,7 @@ Terminal operations produce a final result and consume the Stream.
 
 Performs an action on each element.
 
-```java
+```text
 names.forEach(System.out::println);
 ```
 
@@ -274,7 +274,7 @@ Gathers the elements of a Stream into a desired result.
 - Statistics
 
 **Example: Filter Even Numbers**
-```java
+```text
 List<Integer> numbers = List.of(1, 2, 3, 4, 5);
 
 List<Integer> even = numbers.stream()
@@ -296,7 +296,7 @@ List<Integer> even = numbers.stream()
 
 Returns the count of elements.
 
-```java
+```text
 long count = numbers.stream().count();
 ```
 
@@ -304,13 +304,13 @@ long count = numbers.stream().count();
 
 Reduces multiple values into a single value.
 
-```java
+```text
 int sum = numbers.stream().reduce(0, (a, b) -> a + b);
 ```
 
 ### 5. min() and max()
 
-```java
+```text
 Optional<Integer> min = numbers.stream().min(Comparator.naturalOrder());
 Optional<Integer> max = numbers.stream().max(Comparator.naturalOrder());
 ```
@@ -319,7 +319,7 @@ Optional<Integer> max = numbers.stream().max(Comparator.naturalOrder());
 
 Returns `true` if at least one element matches.
 
-```java
+```text
 List<Integer> numbers = List.of(5, 10, 15, 20);
 
 boolean result = numbers.stream()
@@ -332,7 +332,7 @@ boolean result = numbers.stream()
 
 Returns `true` if every element matches.
 
-```java
+```text
 boolean result = numbers.stream()
                         .allMatch(n -> n > 0);
 ```
@@ -343,7 +343,7 @@ boolean result = numbers.stream()
 
 Returns `true` if no element matches.
 
-```java
+```text
 boolean result = numbers.stream()
                         .noneMatch(n -> n < 0);
 ```
@@ -392,7 +392,7 @@ Instead of writing a full class with fields, constructors, getters, `equals()`, 
 
 ### Example
 
-```java
+```text
 public record Employee(int id, String name) {}
 ```
 
@@ -419,7 +419,7 @@ This single line defines a complete data-holding class.
 ### Code Comparison
 
 **Java 8:**
-```java
+```text
 public class Employee {
     private int id;
     private String name;
@@ -440,7 +440,7 @@ public class Employee {
 ```
 
 **Java 17:**
-```java
+```text
 public record Employee(int id, String name) {}
 ```
 
@@ -450,7 +450,7 @@ public record Employee(int id, String name) {}
 
 The constructor that has exactly the same parameters as the record components.
 
-```java
+```text
 public record Employee(int id, String name) {
     public Employee(int id, String name) {
         // Validation logic
@@ -466,7 +466,7 @@ public record Employee(int id, String name) {
 - Omits the parameter list
 - The compiler performs the field assignments automatically
 
-```java
+```text
 public record Employee(int id, String name) {
     public Employee {
         if (id <= 0) throw new IllegalArgumentException("ID must be positive");
