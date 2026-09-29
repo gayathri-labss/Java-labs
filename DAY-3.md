@@ -9,7 +9,7 @@
 
 Syntax:
 
-```java
+```text
 class Student implements Comparable<Student> {
     @Override
     public int compareTo(Student s) {
@@ -25,7 +25,7 @@ class Student implements Comparable<Student> {
 
 Syntax:
 
-```java
+```text
 class NameComparator implements Comparator<Student> {
     @Override
     public int compare(Student s1, Student s2) {
@@ -36,19 +36,19 @@ class NameComparator implements Comparator<Student> {
 
 Example:
 
-```java
+```text
 Collections.sort(studentList, new NameComparator());
 ```
 
 | Feature | Comparable | Comparator |
 |---|---:|---:|
-| Package | `java.lang` | `java.util` |
-| Method | `compareTo()` | `compare()` |
+| Package | java.lang | java.util |
+| Method | compareTo() | compare() |
 | Sorting type | Natural | Custom |
 | Logic location | Inside class | Outside class |
 | Number of sorting options | One | Multiple |
 
-> Note: Sorting algorithms used by Collections.sort are typically O(n log n) time complexity (not `o(log n)`).
+> Note: Sorting algorithms used by Collections.sort are typically O(n log n) time complexity (not o(log n)).
 
 ---
 
@@ -56,12 +56,12 @@ Collections.sort(studentList, new NameComparator());
 
 ### Iterator
 - Used to traverse elements in a Collection one by one.
-- Available in `java.util`.
+- Available in java.util.
 - Allows safe removal during iteration.
 
 Syntax:
 
-```java
+```text
 Iterator<String> it = list.iterator();
 
 while (it.hasNext()) {
@@ -78,11 +78,11 @@ Important methods:
 
 Characteristics:
 - Forward traversal only.
-- Works with all `Collection` types.
+- Works with all Collection types.
 - Cannot move backward.
 
 ### ListIterator
-- Advanced iterator for `List` implementations (`ArrayList`, `LinkedList`, `Vector`).
+- Advanced iterator for List implementations (ArrayList, LinkedList, Vector).
 - Supports bidirectional traversal and modification while iterating.
 
 Key methods:
@@ -94,8 +94,8 @@ Key methods:
 
 Characteristics:
 - Forward and backward traversal.
-- Can update elements using `set()`.
-- Can insert elements using `add()`.
+- Can update elements using set().
+- Can insert elements using add().
 
 | Feature | Iterator | ListIterator |
 |---|---:|---:|
@@ -113,7 +113,7 @@ Generics allow writing type-safe code using type parameters like `<T>`.
 
 Without generics:
 
-```java
+```text
 ArrayList list = new ArrayList();
 list.add("Java");
 list.add(100);
@@ -124,7 +124,7 @@ String s = (String) list.get(1); // ClassCastException at runtime
 
 With generics:
 
-```java
+```text
 ArrayList<String> list = new ArrayList<>();
 list.add("Java");
 list.add("Spring");
@@ -140,13 +140,13 @@ Common type parameter names:
 
 ### Wildcards
 1. `<?>` — Unbounded wildcard (means any type)
-   - `List<?> list;` accepts `List<String>`, `List<Integer>`, etc.
+   - `List<?> list;` accepts List<String>, List<Integer>, etc.
 
 2. `<? extends T>` — Upper-bounded wildcard (T or any subclass of T)
-   - Example: `List<? extends Number>` accepts `List<Integer>`, `List<Double>`, etc.
+   - Example: `List<? extends Number>` accepts List<Integer>, List<Double>, etc.
 
 3. `<? super T>` — Lower-bounded wildcard (T or any superclass of T)
-   - Example: `List<? super Integer>` accepts `List<Integer>`, `List<Number>`, `List<Object>`, etc.
+   - Example: `List<? super Integer>` accepts List<Integer>, List<Number>, List<Object>, etc.
 
 Generics provide compile-time type checking; they do not change runtime time complexity.
 
@@ -164,7 +164,7 @@ Notes about Streams:
 
 Example — before Java 8:
 
-```java
+```text
 List<Integer> list = Arrays.asList(10, 20, 30, 40);
 for (Integer i : list) {
     if (i > 20) {
@@ -175,67 +175,67 @@ for (Integer i : list) {
 
 Example — with Java 8 Stream:
 
-```java
+```text
 list.stream()
     .filter(i -> i > 20)
     .forEach(System.out::println);
 ```
 
 ### Types of Stream Operations
-- Intermediate operations: return another `Stream` (lazy)
-  - `filter()`, `map()`, `sorted()`, `distinct()`, `limit()`, `skip()`
+- Intermediate operations: return another Stream (lazy)
+  - filter(), map(), sorted(), distinct(), limit(), skip()
 - Terminal operations: produce the final result (eager)
-  - `collect()`, `forEach()`, `count()`, `reduce()`, `findFirst()`, `anyMatch()`
+  - collect(), forEach(), count(), reduce(), findFirst(), anyMatch()
 
 ### Common Stream Methods (and complexity where applicable)
-- `filter()` — O(n)
-- `map()` — O(n)
-- `count()` — O(n)
-- `sorted()` — O(n log n)
+- filter() — O(n)
+- map() — O(n)
+- count() — O(n)
+- sorted() — O(n log n)
 
 Examples and usage:
 
 - forEach()
-```java
+```text
 list.stream().forEach(System.out::println);
 ```
 
 - collect()
-```java
+```text
 List<Integer> result = list.stream()
                             .filter(i -> i > 20)
                             .collect(Collectors.toList());
 ```
 
 - count()
-```java
+```text
 long count = list.stream().count();
 ```
 
 - findFirst()
-```java
+```text
 Optional<Integer> first = list.stream().findFirst();
 ```
 
 - findAny() — useful with parallel streams
-```java
+```text
 Optional<Integer> any = list.stream().findAny();
 ```
 
 - anyMatch()/allMatch()/noneMatch()
-```java
+```text
 boolean any = list.stream().anyMatch(i -> i > 30);
 boolean all = list.stream().allMatch(i -> i > 5);
 boolean none = list.stream().noneMatch(i -> i < 0);
 ```
 
 - reduce() — combine elements (example: sum)
-```java
+```text
 int sum = list.stream().reduce(0, Integer::sum);
 ```
 
 - min()/max()
-```java
+```text
 Optional<Integer> min = list.stream().min(Integer::compareTo);
 Optional<Integer> max = list.stream().max(Integer::compareTo);
 ```
