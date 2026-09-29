@@ -10,7 +10,7 @@ When an exception occurs, Java immediately stops executing the remaining stateme
 
 ### TRY-CATCH BLOCK
 
-```java
+```text
 try {
     // Code that may throw an exception
 } catch (ExceptionType e) {
@@ -31,7 +31,7 @@ try {
 These tasks should happen whether the operation succeeds or fails.
 
 **Valid Combinations:**
-```java
+```text
 try { }
 catch (...) { }
 
@@ -44,7 +44,7 @@ finally { }
 ```
 
 **Invalid:**
-```java
+```text
 try {
     // code
 }
@@ -60,7 +60,7 @@ try {
 `throw` is a keyword used to manually create and throw an exception.
 
 **Example:**
-```java
+```text
 public class Main {
     public static void main(String[] args) {
         int age = 15;
@@ -75,7 +75,7 @@ public class Main {
 ```
 
 **Output:**
-```
+```text
 Exception in thread "main"
 java.lang.IllegalArgumentException:
 Age must be 18 or above.
@@ -86,7 +86,7 @@ Age must be 18 or above.
 `throws` is a keyword used in a method declaration to indicate that the method may throw an exception, and the caller is responsible for handling it. `throws` does NOT create an exception.
 
 **Example:**
-```java
+```text
 import java.io.IOException;
 
 public class Main {
@@ -116,7 +116,7 @@ The caller of `IOException` will handle it.
 
 ### ❌ WRONG WAY
 
-```java
+```text
 try {
     int x = 10 / 0;
 } catch (Exception e) {
@@ -130,7 +130,7 @@ This causes a **compilation error** because `Exception` will catch `ArithmeticEx
 
 ### ✅ CORRECT WAY
 
-```java
+```text
 try {
     int x = 10 / 0;
 } catch (ArithmeticException e) {
@@ -184,7 +184,7 @@ Memory is a place where we store variables, objects, methods, and references.
 
 ### EXAMPLE 1: Single Object
 
-```java
+```text
 Student s = new Student();
 ```
 
@@ -196,14 +196,14 @@ Student s = new Student();
 
 ### EXAMPLE 2: Two References to Same Object
 
-```java
+```text
 Student s1 = new Student();
 Student s2 = s1;
 ```
 
 **Answer**: One Student object in Heap with two references (`s1`, `s2`) pointing to it.
 
-```
+```text
 STACK                          HEAP
 
 s1  -----------\
@@ -220,14 +220,14 @@ Both `s1` and `s2` point to the same object.
 
 ### EXAMPLE 3: Two Separate Objects
 
-```java
+```text
 Student s1 = new Student();
 Student s2 = new Student();
 ```
 
 **Answer**: **TWO** separate objects in Heap, each with its own reference.
 
-```
+```text
 STACK                      HEAP
 
 s1  ------------> Student Object 1
@@ -245,7 +245,7 @@ For objects:
 - `==` checks whether both references point to the **SAME object** in memory.
 
 **Example:**
-```java
+```text
 Student s1 = new Student();
 Student s2 = s1;
 s1 == s2?  // true (both point to same object)
@@ -264,14 +264,14 @@ s1 == s2?  // false (different objects)
 Garbage Collection (GC) is the process by which the JVM automatically removes objects from the Heap that are no longer being used.
 
 **Example:**
-```java
+```text
 Student s1 = new Student();
 Student s2 = s1;
 s1 = null;
 s2 = null;
 ```
 
-```
+```text
 STACK: s1 = null, s2 = null
 HEAP: Student Object (no references)
 ```
@@ -307,7 +307,7 @@ A String is an object in Java that represents a sequence of characters.
 
 ### Breaking Down a String Declaration
 
-```java
+```text
 String city = "Bengaluru";
 ```
 
@@ -323,7 +323,7 @@ String city = "Bengaluru";
 An immutable object is an object whose state (data/content) cannot be changed after it is created.
 
 **Example:**
-```java
+```text
 String name = "Gayathri";
 name = "Rahul";
 ```
@@ -340,7 +340,7 @@ name = "Rahul";
 
 ### STRING CONCATENATION - EXAMPLE 1
 
-```java
+```text
 String s = "Java";
 s.concat(" Programming");
 System.out.println(s);
@@ -349,7 +349,7 @@ System.out.println(s);
 **Output:** `Java`
 
 **Explanation:**
-```
+```text
 STACK                      HEAP
 
 s --------------------> "Java"
@@ -364,7 +364,7 @@ Since there is no reference to "Java Programming", it goes to Garbage Collection
 
 ### STRING CONCATENATION - EXAMPLE 2
 
-```java
+```text
 String s = "Java";
 s = s.concat(" Programming");
 System.out.println(s);
@@ -421,12 +421,12 @@ should remain unchanged after they're created.
 The String Pool is a memory area where Java stores only **ONE** copy of identical String literals to save memory.
 
 **Example:**
-```java
+```text
 String s1 = "Java";
 String s2 = "Java";
 ```
 
-```
+```text
 STACK                          HEAP (String Pool)
 
 s1 -----------------------\
@@ -438,7 +438,7 @@ s2 -----------------------/
 
 Both `s1` and `s2` point to the **SAME** String object in the String Pool.
 
-```java
+```text
 System.out.println(s1 == s2);
 ```
 
@@ -448,7 +448,7 @@ System.out.println(s1 == s2);
 
 ### With new Keyword
 
-```java
+```text
 String s1 = new String("Java");
 String s2 = new String("Java");
 s1 == s2?  // false
@@ -466,7 +466,7 @@ s1 == s2?  // false
 | Checks if both point to SAME object | Checks if both have SAME content |
 
 **Example:**
-```java
+```text
 String s1 = "Java";
 String s2 = "Java";
 String s3 = new String("Java");
@@ -486,7 +486,7 @@ s1.equals(s3)?   // true (same content)
 Mutable means its contents **CAN** be changed without creating a new object.
 
 **Example:**
-```java
+```text
 StringBuilder sb = new StringBuilder("Java");
 sb.append(" Programming");
 System.out.println(sb);
@@ -530,7 +530,7 @@ Because it modifies the **SAME** object instead of creating new ones:
 A Wrapper Class is a class that wraps (encapsulates) a primitive data type into an object.
 
 **Example:**
-```java
+```text
 int age = 22;              // Primitive
 Integer age = 22;          // Wrapper Class object
 ```
@@ -542,7 +542,7 @@ Integer age = 22;          // Wrapper Class object
 Some Java features **ONLY** work with objects, not primitives.
 
 **Example:**
-```java
+```text
 ArrayList<int> numbers = new ArrayList<>();      // ❌ Compilation Error
 ArrayList<Integer> numbers = new ArrayList<>();  // ✅ Works perfectly
 ```
@@ -587,12 +587,12 @@ Use Wrapper Classes **ONLY** when you need objects.
 Autoboxing is the automatic conversion of a primitive data type into its corresponding Wrapper Class object by the Java compiler.
 
 **Example:**
-```java
+```text
 Integer num = 20;  // You wrote this
 ```
 
 Internally, compiler treats it as:
-```java
+```text
 Integer num = Integer.valueOf(20);
 ```
 
@@ -603,7 +603,7 @@ Integer num = Integer.valueOf(20);
 Unboxing is the automatic conversion of a Wrapper Class object into its corresponding primitive data type.
 
 **Example:**
-```java
+```text
 Integer i = 10;
 int x = i;         // Automatic unboxing
 ```
@@ -634,7 +634,7 @@ A `NullPointerException` is thrown because Java tries to call `intValue()` on a 
 
 ### Example 1: Within Cache Range
 
-```java
+```text
 Integer a = 10;
 Integer b = 10;
 System.out.println(a == b);  // true
@@ -642,7 +642,7 @@ System.out.println(a == b);  // true
 
 **Why?** Java caches Integer objects from **-128 to 127**. Both `a` and `b` reference the SAME cached object.
 
-```
+```text
 STACK                    INTEGER CACHE
 
 a --------------------\
@@ -656,7 +656,7 @@ b --------------------/
 
 ### Example 2: Outside Cache Range
 
-```java
+```text
 Integer c = 200;
 Integer d = 200;
 c == d?  // false
@@ -687,7 +687,7 @@ A Collection is an object that stores and manages a group of objects.
 ### Why Do We Need Collections?
 
 **Without Collections:**
-```java
+```text
 String emp1 = "Rahul";
 String emp2 = "Amit";
 String emp3 = "Priya";
@@ -697,7 +697,7 @@ String emp100 = "John";
 😵 This is difficult to manage.
 
 **With a Collection:**
-```java
+```text
 ArrayList<String> employees = new ArrayList<>();
 ```
 Much cleaner and easier!
@@ -734,7 +734,7 @@ Much cleaner and easier!
 `ArrayList` is a class that implements the List interface and stores objects in a dynamic array.
 
 **Problem with Arrays:**
-```java
+```text
 int[] numbers = new int[3];
 numbers[0] = 10;
 numbers[1] = 20;
@@ -745,7 +745,7 @@ numbers[3] = 40;  // ❌ IndexOutOfBoundsException
 Arrays have fixed size. Once created, you cannot add more elements.
 
 **Solution - ArrayList:**
-```java
+```text
 ArrayList<Integer> numbers = new ArrayList<>();
 numbers.add(10);
 numbers.add(20);
@@ -764,7 +764,7 @@ numbers.add(40);  // ✅ Works! ArrayList grows automatically
 
 #### CAN ARRAYLIST STORE DUPLICATES?
 
-```java
+```text
 list.add(10);
 list.add(10);
 ```
@@ -775,14 +775,14 @@ list.add(10);
 
 #### DOES ARRAYLIST MAINTAIN INSERTION ORDER?
 
-```java
+```text
 list.add("Apple");
 list.add("Banana");
 list.add("Mango");
 ```
 
 **Output:**
-```
+```text
 Apple
 Banana
 Mango
@@ -819,7 +819,7 @@ Mango
 
 #### EXAMPLE: Remove by Value
 
-```java
+```text
 ArrayList<Integer> list = new ArrayList<>();
 list.add(10);
 list.add(20);
@@ -838,7 +838,7 @@ System.out.println(list);
 `LinkedList` is a class that implements the List interface and stores elements as a chain of nodes instead of a dynamic array.
 
 **Structure:**
-```
+```text
 +------+      +------+      +------+
 |  10  | ---> |  20  | ---> |  30  | ---> null
 +------+      +------+      +------+
@@ -886,7 +886,7 @@ With Vector:
 Synchronization is a mechanism that allows only one thread to execute a critical section of code at a time.
 
 **Process:**
-```
+```text
 Lock
   ↓
 Perform operation
@@ -929,7 +929,7 @@ Extra work means extra time. That's why **Vector is generally SLOWER** than Arra
 
 ⚠️ **Important**: Queue is an **INTERFACE**, not a class.
 
-```java
+```text
 Queue<Integer> q = new Queue<>();          // ❌ Compilation Error
 Queue<Integer> q = new LinkedList<>();     // ✅ Correct
 ```
@@ -945,7 +945,7 @@ Queue<Integer> q = new LinkedList<>();     // ✅ Correct
 
 #### QUEUE STRUCTURE
 
-```
+```text
 Front                    Rear
 
 A  →  B  →  C
@@ -1030,7 +1030,7 @@ It is an interface that allows you to add and remove elements from **BOTH** the 
 **Combination of both Queue and Stack!**
 
 **Syntax:**
-```java
+```text
 Deque<Integer> deque = new ArrayDeque<>();
 ```
 
@@ -1083,7 +1083,7 @@ Deque<Integer> deque = new ArrayDeque<>();
 `Set` is an interface that stores **UNIQUE** elements. It does **NOT** allow duplicate values.
 
 **Example:**
-```java
+```text
 Set<String> names = new HashSet<>();
 names.add("A");
 names.add("B");
@@ -1144,7 +1144,7 @@ A **bucket** is a storage unit used to store the hash code.
 A hash collision occurs when two **different** objects produce the **SAME** hash code and are assigned to the **same** bucket.
 
 **Example:**
-```
+```text
 "Java" → Bucket 3
 "Spring" → Bucket 3 (same bucket, different objects)
 ```
@@ -1164,7 +1164,7 @@ A hash collision occurs when two **different** objects produce the **SAME** hash
 HashSet stores unique elements and uses a HashMap internally.
 
 **add(element) Flow:**
-```
+```text
 add(element)
     ↓
 Calculate hashCode()
@@ -1234,7 +1234,7 @@ HashMap uses an **ARRAY OF BUCKETS** where each bucket stores a **NODE** object.
 
 ### put(key, value) FLOW
 
-```
+```text
 put(key, value)
     ↓
 Calculate hashCode()
@@ -1252,7 +1252,7 @@ Bucket empty?
 
 ### get(key) FLOW
 
-```
+```text
 get(key)
     ↓
 Calculate hashCode()
@@ -1288,5 +1288,3 @@ Java stores both nodes in the **SAME** bucket.
 `LinkedHashMap` is similar to `HashMap` but maintains insertion order.
 
 ---
-
-## END OF DAY-2 ✅
