@@ -1,55 +1,77 @@
-DAY-1: JAVA FUNDAMENTALS
-1. WHAT IS JAVA?
+# DAY-1: JAVA FUNDAMENTALS
+
+## 1. WHAT IS JAVA?
+
 Java is a high-level, object-oriented, platform-independent programming language.
 
-High-level: Easier for humans to read and write than machine code.
-Object-oriented: Programs built using objects that represent real-world entities.
-Platform-independent: Write code once, run on any OS with a Java Virtual Machine (JVM).
-Key Concept: Write Once, Run Anywhere (WORA)
+- **High-level**: Easier for humans to read and write than machine code.
+- **Object-oriented**: Programs built using objects that represent real-world entities.
+- **Platform-independent**: Write code once, run on any OS with a Java Virtual Machine (JVM).
 
-2. WHAT ARE JDK, JRE, AND JVM?
-A. JVM (Java Virtual Machine)
+**Key Concept**: Write Once, Run Anywhere (WORA)
+
+---
+
+## 2. WHAT ARE JDK, JRE, AND JVM?
+
+### A. JVM (Java Virtual Machine)
+
 The JVM is responsible for running Java bytecode.
 
-Main Responsibilities:
+**Main Responsibilities:**
+- Loading classes
+- Verifying bytecode
+- Managing memory
+- Running garbage collection
+- Executing the program
 
-Loading classes
-Verifying bytecode
-Managing memory
-Running garbage collection
-Executing the program
-⚠️ Important: Without a JVM, a Java program cannot run.
+⚠️ **Important**: Without a JVM, a Java program cannot run.
 
-B. JRE (Java Runtime Environment)
+### B. JRE (Java Runtime Environment)
+
 The JRE contains:
+- JVM
+- Core Java libraries
+- Runtime components
 
-JVM
-Core Java libraries
-Runtime components
-Use Case: Enough to run Java applications but NOT to develop them.
+**Use Case**: Enough to run Java applications but NOT to develop them.
 
-C. JDK (Java Development Kit)
+### C. JDK (Java Development Kit)
+
 The JDK includes:
+- JRE
+- JVM
+- Java compiler (javac)
+- Debugger
+- Development tools
 
-JRE
-JVM
-Java compiler (javac)
-Debugger
-Development tools
-Use Case: If you're writing Java code, you NEED the JDK.
+**Use Case**: If you're writing Java code, you NEED the JDK.
 
-Relationship Between JDK, JRE, and JVM
+### Relationship Between JDK, JRE, and JVM
+
+```text
 JDK (Java Development Kit)
   ├── JRE (Java Runtime Environment)
   │   └── JVM (Java Virtual Machine)
-3. WHAT HAPPENS WHEN YOU RUN A JAVA PROGRAM?
-Example Code
+```
+
+---
+
+## 3. WHAT HAPPENS WHEN YOU RUN A JAVA PROGRAM?
+
+### Example Code
+
+```text
 public class Hello {
     public static void main(String[] args) {
         System.out.println("Hello");
     }
 }
-Execution Flow
+```
+
+### Execution Flow
+
+```text
 Hello.java
     ↓
 javac (Compiler)
@@ -61,46 +83,67 @@ JVM
 Machine Code
     ↓
 Output on Screen
-How It Works
-The compiler converts your source code into bytecode.
-The JVM converts that bytecode into machine instructions for your OS.
-⚠️ IMPORTANT NOTE:
+```
 
-The code is NOT compiled on every platform.
-It is compiled ONCE into bytecode.
-The JVM on each operating system executes that SAME bytecode.
-4. QUICK REFERENCE TABLE
-TERM	FULL FORM	PURPOSE
-JDK	Java Development Kit	For DEVELOPING Java applications. Includes: JRE + JVM + compiler + tools
-JRE	Java Runtime Environment	For RUNNING Java applications. Includes: JVM + Java class libraries
-JVM	Java Virtual Machine	Executes Java bytecode. Converts bytecode to machine code
-5. VARIABLES IN JAVA
-What is a Variable?
-A variable is a named memory location that stores a value. The value stored in a variable can change during the execution of a program unless it is declared as final.
+### How It Works
 
-Think of it like a labeled box:
+1. The compiler converts your source code into bytecode.
+2. The JVM converts that bytecode into machine instructions for your OS.
 
+⚠️ **IMPORTANT NOTE**:
+- The code is NOT compiled on every platform.
+- It is compiled ONCE into bytecode.
+- The JVM on each operating system executes that SAME bytecode.
+
+---
+
+## 4. QUICK REFERENCE TABLE
+
+| TERM | FULL FORM | PURPOSE |
+|------|-----------|---------|
+| **JDK** | Java Development Kit | For DEVELOPING Java applications. Includes: JRE + JVM + compiler + tools |
+| **JRE** | Java Runtime Environment | For RUNNING Java applications. Includes: JVM + Java class libraries |
+| **JVM** | Java Virtual Machine | Executes Java bytecode. Converts bytecode to machine code |
+
+---
+
+## 5. VARIABLES IN JAVA
+
+### What is a Variable?
+
+A variable is a named memory location that stores a value. The value stored in a variable can change during the execution of a program unless it is declared as `final`.
+
+**Think of it like a labeled box:**
+
+```text
 +-------------+
 | Age         |
 |-------------|
 | 23          |
 +-------------+
-Instead of remembering the value 23 everywhere, you simply remember the label Age.
+```
 
-Types of Variables
-1. Local Variable
+Instead of remembering the value 23 everywhere, you simply remember the label `Age`.
+
+---
+
+### Types of Variables
+
+#### 1. Local Variable
+
 A local variable is a variable that is declared inside a method, constructor, or block. It can only be used within that method or block. It is created when the method starts executing and is destroyed when execution exits the method.
 
-Example 1 - Compilation Error:
-
+**Example 1 - Compilation Error:**
+```text
 public void test() {
     int age;
     System.out.println(age); // ❌ Compilation error
 }
+```
 This causes an error because local variables are not automatically initialized.
 
-Example 2 - Scope Error:
-
+**Example 2 - Scope Error:**
+```text
 public class Student {
     public void display() {
         int age = 23;
@@ -110,15 +153,19 @@ public class Student {
         System.out.println(age); // ❌ Compilation error
     }
 }
-This gives a compilation error because age belongs only to the display() method.
+```
+This gives a compilation error because `age` belongs only to the `display()` method.
 
-📌 NOTE: Local variables do not receive default values because Java requires programmers to initialize them before use. This helps catch programming errors at compile time and prevents accidental use of uninitialized variables.
+**📌 NOTE**: Local variables do not receive default values because Java requires programmers to initialize them before use. This helps catch programming errors at compile time and prevents accidental use of uninitialized variables.
 
-2. Instance Variable
+---
+
+#### 2. Instance Variable
+
 An instance variable is a variable declared inside a class but outside any method, constructor, or block.
 
-Example:
-
+**Example:**
+```text
 public class Student {
     int age = 23;                  // Instance variable
     String name = "Gayathri";      // Instance variable
@@ -128,16 +175,21 @@ public class Student {
         System.out.println(name);
     }
 }
-Why is it called an "Instance" Variable?
+```
+
+**Why is it called an "Instance" Variable?**
 
 Every time you create an instance (object) of a class, it gets its own copy of the instance variables.
 
-Example:
-
+**Example:**
+```text
 Student s1 = new Student();
 Student s2 = new Student();
-Visualization:
+```
 
+**Visualization:**
+
+```text
 Student Class
 -------------------
 age
@@ -151,31 +203,40 @@ s1                          s2
 --------                    --------
 age = 23                    age = 23
 name = "Gayathri"           name = "Gayathri"
+```
+
 Each object has its own separate values. If you change:
-
+```text
 s1.age = 30;
-Then:
+```
 
+Then:
+```text
 s1.age = 30
 s2.age = 23
+```
+
 Changing one object does not affect the other. This is why they're called instance variables—they belong to each instance (object).
 
-Why do instance variables have default values?
+**Why do instance variables have default values?**
 
 When you create an object:
-
+```text
 Student s1 = new Student();
-Java allocates memory for the object and automatically initializes all its instance variables with default values:
+```
 
-int → 0
-double → 0.0
-boolean → false
-char → '\u0000'
-String → null
+Java allocates memory for the object and automatically initializes all its instance variables with **default values**:
+
+- `int` → `0`
+- `double` → `0.0`
+- `boolean` → `false`
+- `char` → `'\u0000'`
+- `String` → `null`
+
 This ensures every new object starts in a valid, predictable state.
 
-Example:
-
+**Example:**
+```text
 public class Student {
     int age;
     
@@ -183,26 +244,39 @@ public class Student {
         System.out.println(age);  // Prints: 0
     }
 }
-3. Static Variable
-A static variable is a variable declared using the static keyword. It belongs to the class, not to individual objects.
+```
 
-Example:
+---
 
+#### 3. Static Variable
+
+A static variable is a variable declared using the `static` keyword. It belongs to the class, not to individual objects.
+
+**Example:**
+```text
 public class Student {
     String name;                    // Instance variable
     static String college = "RUAS"; // Static variable
 }
-Key Characteristics:
+```
 
-Only one copy exists for the entire class
-Shared among all objects of that class
-Changes affect all instances
-Belongs to the class, not individual objects
-Instance Variable vs Static Variable
-Aspect	Instance Variable	Static Variable
-Belongs to	An object	The class
-Copy count	Each object has its own copy	Only one copy exists
-Access	Using an object reference (e.g., obj.name)	Using class name (e.g., Student.college)
-Changes affect	Only that specific object	All objects of the class
-Memory allocation	When object is created	When class is loaded
-END OF DAY-1 ✅
+**Key Characteristics:**
+- Only **one copy** exists for the entire class
+- Shared among **all objects** of that class
+- Changes affect **all instances**
+- Belongs to the **class**, not individual objects
+
+---
+
+### Instance Variable vs Static Variable
+
+| Aspect | Instance Variable | Static Variable |
+|--------|-------------------|-----------------|
+| **Belongs to** | An object | The class |
+| **Copy count** | Each object has its own copy | Only one copy exists |
+| **Access** | Using an object reference (e.g., `obj.name`) | Using class name (e.g., `Student.college`) |
+| **Changes affect** | Only that specific object | All objects of the class |
+| **Memory allocation** | When object is created | When class is loaded |
+
+---
+
