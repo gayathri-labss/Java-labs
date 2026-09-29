@@ -4,7 +4,7 @@
 
 An `Executor` is an interface that provides a simple way to execute tasks.
 
-```java
+```text
 Executor executor = command -> {
     new Thread(command).start();
 };
@@ -50,14 +50,14 @@ The Executor Framework is a high-level API introduced in Java 5 to manage and ex
 - shutdown operations
 
 ### Syntax
-```java
+```text
 ExecutorService executor = Executors.newFixedThreadPool(3);
 ```
 
 ### `execute()`
 `execute()` is used to execute a `Runnable` task and does not return any result.
 
-```java
+```text
 ExecutorService executor = Executors.newFixedThreadPool(3);
 
 executor.execute(() -> {
@@ -68,7 +68,7 @@ executor.execute(() -> {
 ### `submit()`
 `submit()` executes a task and returns a `Future` object so you can track the task and retrieve its result.
 
-```java
+```text
 ExecutorService executor = Executors.newFixedThreadPool(3);
 
 Future<?> future = executor.submit(() -> {
@@ -90,7 +90,7 @@ A strong answer is:
 ### Runnable
 `Runnable` is a functional interface that defines a task.
 
-```java
+```text
 public interface Runnable {
     void run();
 }
@@ -99,7 +99,7 @@ public interface Runnable {
 ### Callable
 `Callable` is a functional interface that represents a task which can return a result and throw checked exceptions.
 
-```java
+```text
 public interface Callable<V> {
     V call() throws Exception;
 }
@@ -125,7 +125,7 @@ Examples:
 ## 6) Evolution of Task Interfaces
 
 ### Step 1: Runnable (Java 1.0)
-```java
+```text
 public interface Runnable {
     void run();
 }
@@ -136,7 +136,7 @@ Questions:
 - Can it throw checked exceptions? ❌ No
 
 ### Step 2: Callable (Java 5)
-```java
+```text
 public interface Callable<V> {
     V call() throws Exception;
 }
@@ -222,7 +222,7 @@ A strong answer is:
 ### 1. `runAsync()`
 `runAsync()` is used to execute a task asynchronously that does not return a result.
 
-```java
+```text
 CompletableFuture<Void> future =
     CompletableFuture.runAsync(() -> {
         System.out.println("Sending Email");
@@ -232,7 +232,7 @@ CompletableFuture<Void> future =
 ### 2. `supplyAsync()`
 `supplyAsync()` executes a task asynchronously and returns a result.
 
-```java
+```text
 CompletableFuture<String> future =
     CompletableFuture.supplyAsync(() -> {
         return "Hello";
@@ -249,7 +249,7 @@ CompletableFuture<String> future =
 ### 3. `thenApply()`
 `thenApply()` transforms the result of a `CompletableFuture` into another value.
 
-```java
+```text
 CompletableFuture<String> future =
     CompletableFuture
         .supplyAsync(() -> "gayathri")
@@ -259,7 +259,7 @@ CompletableFuture<String> future =
 ### 4. `thenAccept()`
 `thenAccept()` consumes the result of a previous `CompletableFuture` without returning another result.
 
-```java
+```text
 CompletableFuture
     .supplyAsync(() -> "Gayathri")
     .thenAccept(name -> {
@@ -270,7 +270,7 @@ CompletableFuture
 ### 5. `thenCompose()`
 `thenCompose()` is used to chain two dependent asynchronous tasks, where the second task depends on the result of the first task.
 
-```java
+```text
 CompletableFuture<String> future =
     CompletableFuture
         .supplyAsync(() -> "Gayathri")
@@ -284,7 +284,7 @@ CompletableFuture<String> future =
 ### 6. `thenCombine()`
 `thenCombine()` is used to combine the results of two independent `CompletableFuture` objects after both complete.
 
-```java
+```text
 CompletableFuture<String> customer =
     CompletableFuture.supplyAsync(() -> "Gayathri");
 
@@ -315,7 +315,7 @@ CompletableFuture<String> dashboard =
 
 The `File` class represents the path (location) of a file or directory in the file system. It allows you to perform operations like creating, deleting, renaming, and checking file properties.
 
-```java
+```text
 File file = new File("student.txt");
 ```
 
@@ -324,38 +324,38 @@ This creates a Java object representing the file path. It does not create the ph
 ### Common methods to create file
 
 #### 1. Create file
-```java
+```text
 File file = new File("student.txt");
 file.createNewFile();
 ```
 
 #### 2. Check if file exists
-```java
+```text
 file.exists();
 ```
 
 #### 3. Delete file
-```java
+```text
 file.delete();
 ```
 
 #### 4. Get file name
-```java
+```text
 file.getName();
 ```
 
 #### 5. Get absolute path
-```java
+```text
 file.getAbsolutePath();
 ```
 
 #### 6. Check if it is a file
-```java
+```text
 file.isFile();
 ```
 
 #### 7. Check if it is a directory
-```java
+```text
 file.isDirectory();
 ```
 
@@ -368,13 +368,13 @@ file.isDirectory();
 ### FileReader
 `FileReader` is used to read character data from a text file.
 
-```java
+```text
 FileReader reader = new FileReader("student.txt");
 ```
 
 It reads one character at a time.
 
-```java
+```text
 reader.read();
 ```
 
@@ -383,7 +383,7 @@ This returns a single character. Because of this, it is not very efficient.
 ### BufferedReader
 `BufferedReader` reads text efficiently by using an internal buffer and also provides methods like `readLine()`.
 
-```java
+```text
 BufferedReader reader = new BufferedReader(
     new FileReader("student.txt")
 );
@@ -416,17 +416,17 @@ India
 A `Path` is an interface that represents the path to a file or directory.
 
 Instead of:
-```java
+```text
 File file = new File("student.txt");
 ```
 
 Modern Java uses:
-```java
+```text
 Path path = Paths.get("student.txt");
 ```
 
 ### Common examples
-```java
+```text
 Files.createFile(path);
 Files.delete(path);
 Files.copy(source, destination);
@@ -459,7 +459,3 @@ A strong answer is:
 - `CompletableFuture` = modern async API with chaining and combining support
 - `File` = path representation
 - `Path` + `Files` = modern file handling
-
----
-
-![Uploading image.png…]()
